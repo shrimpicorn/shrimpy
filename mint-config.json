@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "project": "Shrimpicorns",
+  "symbol": "SHRIMP",
+
+  "network": "sepolia",
+  "chainId": 11155111,
+  "contractAddress": "0x00E84CAa182f7f09CeE9d96fda758B2AC28F6a5D",
+
+  "rpc": [
+    "https://ethereum-sepolia-rpc.publicnode.com",
+    "https://sepolia.drpc.org",
+    "https://rpc.sepolia.org"
+  ],
+
+  "mint": {
+    "functionName": "mint",
+    "priceGetter":  "mintPriceWei",
+    "capGetter":    "publicMintedRequested",
+    "pausedGetter": "paused",
+    "minQty":  1,
+    "maxQty":  5,
+    "walletCap": 5,
+    "bonusRule": {
+      "triggerQty":  5,
+      "receivedQty": 6,
+      "description": "mint(5) in one tx receives 6 tokens, pays for 5"
+    },
+    "paymentNote": "msg.value must equal mintPriceWei * qty exactly"
+  },
+
+  "abi": [
+    "function mint(uint256 qty) payable",
+    "function mintPriceWei() view returns (uint256)",
+    "function publicMintedRequested(address wallet) view returns (uint256)",
+    "function paused() view returns (bool)",
+    "function saleActive() view returns (bool)",
+    "function totalSupply() view returns (uint256)"
+  ],
+
+  "supply": {
+    "total":  4269,
+    "team":   269,
+    "public": 4000
+  },
+
+  "configSources": [
+    "https://shrimpy-pearl.vercel.app/mint-config.json",
+    "https://raw.githubusercontent.com/shrimpicorn/shrimpy/main/mint-config.json"
+  ]
+}

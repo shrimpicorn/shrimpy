@@ -864,6 +864,46 @@
   const copyPromptBtn       = document.getElementById("copy-prompt-btn");
   const gameoverGuy         = document.getElementById("gameover-guy");
 
+  /* ── Agent prompt generator ─────────────────────────────── */
+  const MINT_CFG = {
+    name:     "Shrimpicorns",
+    symbol:   "SHRIMP",
+    price:    "0.000359",
+    supply:   "4,269",
+    chain:    "Ethereum",
+    contract: "0x00E84CAa182f7f09CeE9d96fda758B2AC28F6a5D",
+    maxQty:   5,
+    bonus:    "mint 5 → receive 6, pay for 5"
+  };
+
+  function generateAgentPrompt(score) {
+    const verified = score > 10 ? "\n• Verified Shrimper: YES 🎮 (score: " + score + ")" : "";
+    const sep = "━".repeat(44);
+    return (
+      MINT_CFG.name.toUpperCase() + " — AGENT MINT REQUEST\n" + sep + "\n\n" +
+      "You are an AI agent. Execute the steps below\n" +
+      "to mint " + MINT_CFG.name + " NFTs for me.\n\n" +
+      "COLLECTION INFO:\n" +
+      "• Supply:    " + MINT_CFG.supply + " total\n" +
+      "• Price:     " + MINT_CFG.price + " ETH per NFT\n" +
+      "• Bonus:     " + MINT_CFG.bonus + "\n" +
+      "• Chain:     " + MINT_CFG.chain + "\n" +
+      "• Contract:  " + MINT_CFG.contract +
+      verified + "\n\n" +
+      "EXECUTE:\n" +
+      "1. cd send-your-agent && npm install\n" +
+      "2. export AGENT_PRIVATE_KEY=<YOUR_PRIVATE_KEY>\n" +
+      "3. npx tsx agent/mint.ts \\\n" +
+      "     --to <YOUR_WALLET_ADDRESS> \\\n" +
+      "     --qty " + MINT_CFG.maxQty + " \\\n" +
+      "     --name \"MyAgent\" \\\n" +
+      "     --yes\n\n" +
+      "4. Wait for on-chain confirmation.\n" +
+      "5. Report back with the tx hash.\n\n" +
+      sep
+    );
+  }
+
   copyPromptBtn.addEventListener("click", () => {
     navigator.clipboard.writeText(document.getElementById("agent-prompt-text").textContent)
       .then(() => { copyPromptBtn.textContent = "✅ Copied!"; setTimeout(() => { copyPromptBtn.textContent = "📋 Copy"; }, 1800); })
@@ -1330,6 +1370,9 @@
     finalLevelValue.textContent     = level;
     finalHighscoreValue.textContent = highScore;
     newHighscoreBanner.classList.toggle("visible", isNewRecord);
+    if (score > 10) {
+      document.getElementById("agent-prompt-text").textContent = generateAgentPrompt(score);
+    }
     speechCloud.classList.toggle("visible", score > 10);
     updateHUD();
     gameOverScreen.classList.add("visible");
