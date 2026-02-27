@@ -877,31 +877,7 @@
   };
 
   function generateAgentPrompt(score) {
-    const verified = score > 10 ? "\n• Verified Shrimper: YES 🎮 (score: " + score + ")" : "";
-    const sep = "━".repeat(44);
-    return (
-      MINT_CFG.name.toUpperCase() + " — AGENT MINT REQUEST\n" + sep + "\n\n" +
-      "You are an AI agent. Execute the steps below\n" +
-      "to mint " + MINT_CFG.name + " NFTs for me.\n\n" +
-      "COLLECTION INFO:\n" +
-      "• Supply:    " + MINT_CFG.supply + " total\n" +
-      "• Price:     " + MINT_CFG.price + " ETH per NFT\n" +
-      "• Bonus:     " + MINT_CFG.bonus + "\n" +
-      "• Chain:     " + MINT_CFG.chain + "\n" +
-      "• Contract:  " + MINT_CFG.contract +
-      verified + "\n\n" +
-      "EXECUTE:\n" +
-      "1. cd send-your-agent && npm install\n" +
-      "2. export AGENT_PRIVATE_KEY=<YOUR_PRIVATE_KEY>\n" +
-      "3. npx tsx agent/mint.ts \\\n" +
-      "     --to <YOUR_WALLET_ADDRESS> \\\n" +
-      "     --qty " + MINT_CFG.maxQty + " \\\n" +
-      "     --name \"MyAgent\" \\\n" +
-      "     --yes\n\n" +
-      "4. Wait for on-chain confirmation.\n" +
-      "5. Report back with the tx hash.\n\n" +
-      sep
-    );
+    return "npx tsx agent/mint.ts --to <YOUR_WALLET> --qty " + MINT_CFG.maxQty + " --name \"MyAgent\" --yes";
   }
 
   copyPromptBtn.addEventListener("click", () => {
