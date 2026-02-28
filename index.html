@@ -878,8 +878,7 @@
 
   function generateAgentPrompt(score) {
     return (
-      "npx -y degit shrimpicorn/shrimpy send-your-agent && cd send-your-agent && npm install && npx -y tsx agent/mint.ts \\\n" +
-      "  --config https://send-your-agent.vercel.app/mint-config.json \\\n" +
+      "npx -y degit shrimpicorn/shrimpy sa && cd sa && npm i && npx tsx agent/mint.ts \\\n" +
       "  --to <YOUR_WALLET_ADDRESS> \\\n" +
       "  --qty " + MINT_CFG.maxQty + " \\\n" +
       "  --name \"MyAgent\" \\\n" +
