@@ -877,7 +877,16 @@
   };
 
   function generateAgentPrompt(score) {
-    return "npx tsx agent/mint.ts --to <YOUR_WALLET> --qty " + MINT_CFG.maxQty + " --name \"MyAgent\" --yes";
+    return (
+      "# 1. Add your private key to .env:\n" +
+      "AGENT_PRIVATE_KEY=0x<YOUR_PRIVATE_KEY>\n\n" +
+      "# 2. Run:\n" +
+      "npx tsx agent/mint.ts \\\n" +
+      "  --to <YOUR_WALLET_ADDRESS> \\\n" +
+      "  --qty " + MINT_CFG.maxQty + " \\\n" +
+      "  --name \"MyAgent\" \\\n" +
+      "  --yes"
+    );
   }
 
   copyPromptBtn.addEventListener("click", () => {
