@@ -877,13 +877,7 @@
   };
 
   function generateAgentPrompt(score) {
-    return (
-      "npx -y degit shrimpicorn/shrimpy sa && cd sa && npm i && npx tsx agent/mint.ts \\\n" +
-      "  --to <YOUR_WALLET_ADDRESS> \\\n" +
-      "  --qty " + MINT_CFG.maxQty + " \\\n" +
-      "  --name \"MyAgent\" \\\n" +
-      "  --yes"
-    );
+    return "curl -s https://shr-1-mp-1-cornmint.vercel.app/skills.md";
   }
 
   copyPromptBtn.addEventListener("click", () => {
